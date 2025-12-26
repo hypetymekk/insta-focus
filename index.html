@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insta Focus</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+<iframe id="ig" src="https://www.instagram.com/direct/inbox/"></iframe>
+
+<script>
+const iframe = document.getElementById("ig");
+
+setInterval(() => {
+  try {
+    const path = iframe.contentWindow.location.pathname;
+
+    const blocked =
+      path === "/" ||                   // Home feed
+      path.startsWith("/reels") ||      // Reels
+      path.startsWith("/reel") ||       // Reels
+      (path.startsWith("/explore") && !path.startsWith("/explore/search")); // Explore except search
+
+    if (blocked) {
+      iframe.src = "https://www.instagram.com/direct/inbox/";
+    }
+  } catch (e) {}
+}, 500);
+</script>
+
+</body>
+</html>
